@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.dao.DevicesDao">
+
+	<resultMap id="Devices" type="com.example.dto.DevicesDto">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<insert id="insertDevicesDto"
+		parameterType="com.example.dto.DevicesDto">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select
+			NVL(max(id)+1,0) from devices
+		</selectKey>
+		insert into devices(id, name) values(#{id}, #{name})
+	</insert>
+  
+	<select id="selectAll" resultMap="Devices">
+		select *
+		from devices
+	</select>
+
+</mapper>

@@ -1,12 +1,16 @@
 package com.example.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import com.example.dto.DevicesDto;
 
-public interface DevicesDao extends JpaRepository<DevicesDto, Long> {
-
-	// DevicesDto findBydeviceId(String deviceId);
+@Repository
+@Mapper
+public interface DevicesDao {
+	void insertDevicesDto(DevicesDto devicesDto);
 	DevicesDto findByname(String device_name);
-	// DevicesDao getDeviceNameByDeviceId(String device_id);
+	List<DevicesDto> selectAll();
 }

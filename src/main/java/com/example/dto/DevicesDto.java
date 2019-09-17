@@ -32,8 +32,4 @@ public class DevicesDto {
 	public void setDevice_name(String name) {
 		this.name = name;
 	}
-
-//	public DevicesDto(String deviceName) {
-//		this.device_name = deviceName;
-//	}
 }

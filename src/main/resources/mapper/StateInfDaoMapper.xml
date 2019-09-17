@@ -3,7 +3,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="com.example.dao.StateInfDao">
 
 	<resultMap id="StateInf" type="com.example.dto.StateInfDto">
@@ -14,15 +13,28 @@
 		<result property="util" column="util" />
 	</resultMap>
 
-
-	<select id="selectMaxRateByYear" resultType="StateInf">
-		select year, device, rate
+	<select id="selectMaxRateByYear" resultMap="StateInf">
+		select year, device,
+		rate
 		from (
-		select year, device, rate, ROW_NUMBER() OVER(PARTITION BY year ORDER BY rate
+		select year, device, rate, ROW_NUMBER() OVER(PARTITION BY
+		year ORDER BY rate
 		desc) as ridx
 		from state_inf
 		) as t1
 		where ridx = 1
 	</select>
+
+
+	<!-- todo : key값 변경. -->
+	<insert id="insertStateInfDto"
+		parameterType="com.example.dto.StateInfDto">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select
+			NVL(max(id)+1,0) from state_inf
+		</selectKey>
+		insert into state_inf(id, year, device, rate, util) values(#{id},
+		#{year}, #{device}, #{rate}, #{util})
+	</insert>
 
 </mapper>

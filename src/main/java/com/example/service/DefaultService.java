@@ -35,11 +35,14 @@ public class DefaultService {
 
 			for (int i = 2; i < base.length; i++) {
 				DevicesDto devicesDto = new DevicesDto();
+				// todo : 랜덤 키 생성, id string으로 변경.
+				// todo : List 만들어서 그냥 넘겨도 될 것 같은데.. ^^ mybatis List 사용.
+				//devicesDto.setDevice_id(i);
 				devicesDto.setDevice_name(base[i]);
-				devicesDao.save(devicesDto);
+				devicesDao.insertDevicesDto(devicesDto);
 			}
 
-			List<DevicesDto> deviceList = devicesDao.findAll();
+			List<DevicesDto> deviceList = devicesDao.selectAll();
 
 			while ((line = bufReader.readLine()) != null) {
 				System.out.println(line);
@@ -65,7 +68,7 @@ public class DefaultService {
 					stateInfDto.setRate(rate);
 					stateInfDto.setUtil(util);
 
-					stateInfDao.save(stateInfDto);
+					stateInfDao.insertStateInfDto(stateInfDto);
 				}
 				// System.out.println("");
 				// List<StateInfDto> List = stateInfDao.findAll();
