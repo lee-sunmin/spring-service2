@@ -25,6 +25,35 @@
 		where ridx = 1
 	</select>
 
+	<select id="selectByYear" resultMap="StateInf"
+		parameterType="int">
+		select d.name, s.year,
+		s.rate
+		from devices d, state_inf s
+		where s.device = d.id
+		and s.year=#{year};
+	</select>
+
+	<select id="selectByDeviceId" resultMap="StateInf"
+		parameterType="int">
+		select name, year, rate
+		from (
+		select d.name, s.year,
+		s.rate, s.id, ROW_NUMBER() OVER(order by s.rate desc)
+		as ridx
+		from
+		(
+		select year, rate,id,device
+		from state_inf
+		where device=#{device}
+		) s,
+		devices d
+		where
+		s.device = d.id
+		) as t1
+		where ridx=1
+	</select>
+
 
 	<!-- todo : key값 변경. -->
 	<insert id="insertStateInfDto"
@@ -36,5 +65,9 @@
 		insert into state_inf(id, year, device, rate, util) values(#{id},
 		#{year}, #{device}, #{rate}, #{util})
 	</insert>
+
+
+
+
 
 </mapper>

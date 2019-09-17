@@ -16,4 +16,12 @@ public class StateInfService {
 	public List<StateInfDto> selectMaxRateByYear() {
 		return stateInfDao.selectMaxRateByYear();
 	}
+
+	public List<StateInfDto> selectByYear(int year) {
+		return stateInfDao.selectByYear(year);
+	}
+
+	public StateInfDto selectByDeviceId(int deviceId) {
+		return stateInfDao.selectByDeviceId(deviceId);
+	}
 }

@@ -11,6 +11,10 @@ import com.example.dto.StateInfDto;
 @Mapper
 public interface StateInfDao {
 	void insertStateInfDto(StateInfDto stateInfDto);
+
 	List<StateInfDto> selectMaxRateByYear();
 
+	List<StateInfDto> selectByYear(int year);
+
+	StateInfDto selectByDeviceId(int deviceId);
 }
