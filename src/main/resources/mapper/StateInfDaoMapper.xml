@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.dao.StateInfDao">
+
+	<resultMap id="StateInf" type="com.example.dto.StateInfDto">
+		<id property="id" column="id" />
+		<result property="year" column="year" />
+		<result property="device" column="device" />
+		<result property="rate" column="rate" />
+		<result property="util" column="util" />
+	</resultMap>
+
+
+	<select id="selectMaxRateByYear" resultType="StateInf">
+		select year, device, rate
+		from (
+		select year, device, rate, ROW_NUMBER() OVER(PARTITION BY year ORDER BY rate
+		desc) as ridx
+		from state_inf
+		) as t1
+		where ridx = 1
+	</select>
+
+</mapper>
