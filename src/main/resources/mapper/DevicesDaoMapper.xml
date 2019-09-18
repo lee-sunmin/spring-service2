@@ -14,7 +14,7 @@
 		parameterType="com.example.dto.DevicesDto">
 		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select
-			NVL(max(id)+1,0) from devices
+			NVL(max(id)+1,1000) from devices
 		</selectKey>
 		insert into devices(id, name) values(#{id}, #{name})
 	</insert>

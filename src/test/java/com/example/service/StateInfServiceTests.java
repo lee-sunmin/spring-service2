@@ -1,5 +1,7 @@
 package com.example.service;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,19 +14,17 @@ public class StateInfServiceTests extends BaseTest {
 
 	@Test
 	public void selectByYearTest() throws Exception {
-		/* todo : device name 출력에 포함되도록 변경. */
-		StateInfVo userList = stateInfService.selectMaxRateByYear(2011);
-		// stateInfService.selectMaxRateByYear();
-		System.out.println("--userList---");
+		StateInfVo stateInfVo = stateInfService.selectMaxRateByYear(2011);
+		assertEquals("데스크탑 컴퓨터", stateInfVo.getDevice_name());
+		assertEquals(95.1, stateInfVo.getRate(), 0);
 	}
 
 	@Test
 	public void selectByDeviceId() throws Exception {
-		/* todo : device name 출력에 포함되도록 변경. */
-		StateInfVo user = stateInfService.selectMaxRateByDeviceId(2);
-		user = stateInfService.selectMaxRateByDeviceId(0);
-		user = stateInfService.selectMaxRateByDeviceId(1);
+		StateInfVo stateInfVo = stateInfService.selectMaxRateByDeviceId(1000);
 
-		System.out.println("--userList---" + user.toString());
+		assertEquals("스마트폰", stateInfVo.getDevice_name());
+		assertEquals(2017, stateInfVo.getYear(), 0);
+		assertEquals(90.6, stateInfVo.getRate(), 0);
 	}
 }

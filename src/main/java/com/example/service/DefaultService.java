@@ -29,7 +29,7 @@ public class DefaultService {
 			File file = new File("src/main/resources/test.csv");
 			FileReader filereader = new FileReader(file);
 			BufferedReader bufReader = new BufferedReader(filereader);
-			
+
 			String line = bufReader.readLine();
 			String[] base = line.split(",");
 
@@ -37,7 +37,7 @@ public class DefaultService {
 				DevicesDto devicesDto = new DevicesDto();
 				// todo : 랜덤 키 생성, id string으로 변경.
 				// todo : List 만들어서 그냥 넘겨도 될 것 같은데.. ^^ mybatis List 사용.
-				//devicesDto.setDevice_id(i);
+				// devicesDto.setDevice_id(i);
 				devicesDto.setDevice_name(base[i]);
 				devicesDao.insertDevicesDto(devicesDto);
 			}
@@ -45,7 +45,6 @@ public class DefaultService {
 			List<DevicesDto> deviceList = devicesDao.selectAllDevices();
 
 			while ((line = bufReader.readLine()) != null) {
-				System.out.println(line);
 				String[] token = line.split(",");
 
 				int year = Integer.parseInt(token[0]);
