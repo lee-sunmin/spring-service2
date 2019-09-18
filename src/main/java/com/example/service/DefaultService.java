@@ -42,7 +42,7 @@ public class DefaultService {
 				devicesDao.insertDevicesDto(devicesDto);
 			}
 
-			List<DevicesDto> deviceList = devicesDao.selectAll();
+			List<DevicesDto> deviceList = devicesDao.selectAllDevices();
 
 			while ((line = bufReader.readLine()) != null) {
 				System.out.println(line);

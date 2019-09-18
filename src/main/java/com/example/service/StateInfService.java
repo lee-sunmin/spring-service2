@@ -1,27 +1,21 @@
 package com.example.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.StateInfDao;
-import com.example.dto.StateInfDto;
+import com.example.vo.StateInfVo;
 
 @Service
 public class StateInfService {
 	@Autowired
 	StateInfDao stateInfDao;
 
-	public List<StateInfDto> selectMaxRateByYear() {
-		return stateInfDao.selectMaxRateByYear();
+	public StateInfVo selectMaxRateByYear(int year) {
+		return stateInfDao.selectMaxRateByYear(year);
 	}
 
-	public List<StateInfDto> selectByYear(int year) {
-		return stateInfDao.selectByYear(year);
-	}
-
-	public StateInfDto selectByDeviceId(int deviceId) {
-		return stateInfDao.selectByDeviceId(deviceId);
+	public StateInfVo selectMaxRateByDeviceId(int deviceId) {
+		return stateInfDao.selectMaxRateByDeviceId(deviceId);
 	}
 }

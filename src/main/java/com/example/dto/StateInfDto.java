@@ -18,13 +18,10 @@ public class StateInfDto {
 	@Column(name = "year")
 	private int year;
 
-	// @ManyToOne
-	// @JoinColumn(name = "Devices_device_id")
 	@Column(name = "device")
 	private int device;
 
-	@Column(name = "rate", columnDefinition = "NUMBER(5,2)")
-	// private double rate;
+	@Column(name = "rate")
 	private double rate;
 
 	@Column(name = "util")

@@ -13,37 +13,42 @@
 		<result property="util" column="util" />
 	</resultMap>
 
-	<select id="selectMaxRateByYear" resultMap="StateInf">
-		select year, device,
-		rate
-		from (
-		select year, device, rate, ROW_NUMBER() OVER(PARTITION BY
-		year ORDER BY rate
-		desc) as ridx
-		from state_inf
-		) as t1
-		where ridx = 1
-	</select>
-
-	<select id="selectByYear" resultMap="StateInf"
+	<select id="selectMaxRateByYear" resultType="com.example.vo.StateInfVo"
 		parameterType="int">
-		select d.name, s.year,
-		s.rate
-		from devices d, state_inf s
-		where s.device = d.id
-		and s.year=#{year};
-	</select>
-
-	<select id="selectByDeviceId" resultMap="StateInf"
-		parameterType="int">
-		select name, year, rate
+		select name as
+		device_name, year, rate
 		from (
 		select d.name, s.year,
-		s.rate, s.id, ROW_NUMBER() OVER(order by s.rate desc)
+		s.rate, s.id,
+		ROW_NUMBER() OVER(order by s.rate desc)
 		as ridx
 		from
 		(
-		select year, rate,id,device
+		select year,
+		rate,id,device
+		from state_inf
+		where year=#{year}
+		) s,
+		devices d
+		where
+		s.device = d.id
+		) as t1
+		where ridx=1
+	</select>
+
+	<select id="selectMaxRateByDeviceId"
+		resultType="com.example.vo.StateInfVo" parameterType="int">
+		select name as
+		device_name, year, rate
+		from (
+		select d.name, s.year,
+		s.rate, s.id,
+		ROW_NUMBER() OVER(order by s.rate desc)
+		as ridx
+		from
+		(
+		select year,
+		rate,id,device
 		from state_inf
 		where device=#{device}
 		) s,
