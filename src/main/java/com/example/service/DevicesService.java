@@ -12,7 +12,7 @@ import com.example.vo.DevicesVo;
 @Service
 public class DevicesService {
 
-	@Autowired
+	@Autowired(required=true)
 	DevicesDao devicesDao;
 
 	public List<DevicesDto> selectAllDevices() {

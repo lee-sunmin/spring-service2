@@ -23,10 +23,13 @@ public class DefaultService {
 	@Autowired
 	StateInfDao stateInfDao;
 
+	/*
+	 * 로컬(서버)의 특정 디렉토리에 저장된 데이터 파일을 어플리케이션이 로딩되는 시점에서 데이터베이스에 적재하는 API
+	 */
 	public String upload() throws Exception {
 
 		try {
-			File file = new File("src/main/resources/test.csv");
+			File file = new File("../src/main/resources/test.csv");
 			FileReader filereader = new FileReader(file);
 			BufferedReader bufReader = new BufferedReader(filereader);
 
@@ -35,9 +38,6 @@ public class DefaultService {
 
 			for (int i = 2; i < base.length; i++) {
 				DevicesDto devicesDto = new DevicesDto();
-				// todo : 랜덤 키 생성, id string으로 변경.
-				// todo : List 만들어서 그냥 넘겨도 될 것 같은데.. ^^ mybatis List 사용.
-				// devicesDto.setDevice_id(i);
 				devicesDto.setDevice_name(base[i]);
 				devicesDao.insertDevicesDto(devicesDto);
 			}
@@ -45,6 +45,7 @@ public class DefaultService {
 			List<DevicesDto> deviceList = devicesDao.selectAllDevices();
 
 			while ((line = bufReader.readLine()) != null) {
+
 				String[] token = line.split(",");
 
 				int year = Integer.parseInt(token[0]);
@@ -69,11 +70,7 @@ public class DefaultService {
 
 					stateInfDao.insertStateInfDto(stateInfDto);
 				}
-				// System.out.println("");
-				// List<StateInfDto> List = stateInfDao.findAll();
-				// System.out.println("");
 			}
-			// .readLine()은 끝에 개행문자를 읽지 않는다.
 			bufReader.close();
 		} catch (Exception e) {
 
