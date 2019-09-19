@@ -8,6 +8,18 @@
 
 ## 문제해결 전략
 
+> **Mybatis 사용**  
+과제의 요구사항을 분석 한 결과 쿼리를 사용하면 쉽게 해결 할 수 있을 것이라 판단했습니다.  
+JPA 쿼리도 고려해 보았으나, Mybatis를 사용하면 쉽게 접근 할 수 있을 것이라 생각하여 채택하였습니다.  
+
+> **Package 구조**  
+Controller, Service, DAO, DTO, VO 로 package를 구성하였습니다.  
+sql 쿼리로 들어오는 데이터들의 구조는 변경점이 없기 때문에 VO로,  
+db에 저장하기 위한 테이블 구조를 가진 데이터는 DTO로 지정했습니다.  
+
+> **ApplicationRunner 사용**  
+ApplicationRunner를 통해 어플리케이션 구동 시 csv 파일을 읽어서 db에 저장하는 Service를 호출했습니다.  
+csv에 접근하는 경로는 jar파일이 있는 target 폴더 기준 상대경로로 접근했습니다.
 
 
 ## 빌드 및 실행 방법
