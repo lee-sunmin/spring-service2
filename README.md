@@ -24,8 +24,8 @@ csv에 접근하는 경로는 jar파일이 있는 target 폴더 기준 상대경
 
 ## 빌드 및 실행 방법
 
-#### 서비스 시작
-
+#### 서비스 시작 
+* target 폴더 내 jar 파일  
 ``` java -jar spring-service-0.0.1-SNAPSHOT.jar ```
 
 ### [API 테스트 시나리오]
