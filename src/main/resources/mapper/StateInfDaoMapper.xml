@@ -15,21 +15,16 @@
 
 	<select id="selectMaxRateByYear" resultType="com.example.vo.StateInfVo"
 		parameterType="int">
-		select name as
-		device_name, year, rate
+		select name as device_name, year, rate
 		from (
-		select d.name, s.year,
-		s.rate, s.id,
-		ROW_NUMBER() OVER(order by s.rate desc)
-		as ridx
+		select d.name, s.year, s.rate, s.id,
+		ROW_NUMBER() OVER(order by s.rate desc) as ridx
 		from
 		(
-		select year,
-		rate,id,device
+		select year, rate,id,device
 		from state_inf
 		where year=#{year}
-		) s,
-		devices d
+		) s, devices d
 		where
 		s.device = d.id
 		) as t1
@@ -38,21 +33,17 @@
 
 	<select id="selectMaxRateByDeviceId"
 		resultType="com.example.vo.StateInfVo" parameterType="int">
-		select name as
-		device_name, year, rate
+		select name as device_name, year, rate
 		from (
-		select d.name, s.year,
-		s.rate, s.id,
+		select d.name, s.year, s.rate, s.id,
 		ROW_NUMBER() OVER(order by s.rate desc)
 		as ridx
 		from
 		(
-		select year,
-		rate,id,device
+		select year, rate, id, device
 		from state_inf
 		where device=#{device}
-		) s,
-		devices d
+		) s, devices d
 		where
 		s.device = d.id
 		) as t1
@@ -67,12 +58,7 @@
 			select
 			NVL(max(id)+1,0) from state_inf
 		</selectKey>
-		insert into state_inf(id, year, device, rate, util) values(#{id},
-		#{year}, #{device}, #{rate}, #{util})
+		insert into state_inf(id, year, device, rate, util) 
+		values(#{id}, #{year}, #{device}, #{rate}, #{util})
 	</insert>
-
-
-
-
-
 </mapper>
