@@ -26,20 +26,17 @@
 
 	<select id="selectMaxRate"
 		resultType="com.example.vo.DevicesVo">
-		select year, device as device_id,
-		rate, name as device_name
+		select year, device as device_id, rate, name as device_name
 		from (
 		select year, device,
 		rate, ROW_NUMBER() OVER(PARTITION
-		BY
-		year
-		ORDER BY rate
-		desc) as ridx
+		BY year
+		ORDER BY rate desc) as ridx
 		from state_inf
 		) as stat, Devices dev
 		where
-		ridx = 1 and stat.device =
-		dev.id
+		ridx = 1 
+		and stat.device = dev.id
 	</select>
 
 </mapper>
